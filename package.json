@@ -1,0 +1,15 @@
+{
+  "name": "analytics-proxy-cloudflare-workers-open",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Analytics proxy on Cloudflare Workers",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "node --check src/index.js"
+  },
+  "devDependencies": {
+    "wrangler": "^4.14.0"
+  }
+}
