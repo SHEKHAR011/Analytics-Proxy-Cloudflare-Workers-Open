@@ -105,6 +105,15 @@ curl -s -o /dev/null -w "%{http_code}" -X POST "http://127.0.0.1:8787/api/collec
 npm run deploy
 ```
 
+## Acknowledgements
+
+This project was built with help and inspiration from:
+
+- [saki](https://github.com/rajnandan1/saki.git) by [@rajnandan1](https://github.com/rajnandan1)
+- [clarity-reverse-proxy](https://github.com/tdmrx/clarity-reverse-proxy.git) by [@tdmrx](https://github.com/tdmrx)
+
+Big thanks to both maintainers for sharing their work.
+
 ## Project Structure
 
 ```text
