@@ -10,6 +10,6 @@
     "check": "node --check src/index.js"
   },
   "devDependencies": {
-    "wrangler": "^4.14.0"
+    "wrangler": "^4.95.0"
   }
 }
