@@ -168,7 +168,7 @@ function getUmamiCorsHeaders() {
     return {
         "access-control-allow-origin": "*",
         "access-control-allow-methods": "POST, OPTIONS",
-        "access-control-allow-headers": "Content-Type, User-Agent",
+        "access-control-allow-headers": "Content-Type, User-Agent, X-Umami-Hostname, X-Umami-Website-Id",
     };
 }
 
