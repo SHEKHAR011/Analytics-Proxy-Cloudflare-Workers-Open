@@ -83,7 +83,7 @@ Do not use `https://cloud.umami.is/script.js` directly if you want requests to p
 <script
   is:inline
   defer
-  src="https://https://your-domain.com/stats/script.js"
+  src="https://your-domain.com/stats/script.js"
   data-website-id="xxxxx-xxxxx-xxxxx-xxxx"
   data-host-url="https://your-domain.com"
 ></script>
