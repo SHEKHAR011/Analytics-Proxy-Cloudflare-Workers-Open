@@ -69,12 +69,47 @@ Use your proxy URL for script loading:
 <script
   defer
   src="https://your-domain.com/stats/script.js"
-  data-website-id="42901071-7ec2-4417-8e48-d83c297ccf28"
+  data-website-id="xxxx-xxxxx-xxxxx-xxxxxx"
   data-host-url="https://your-domain.com"
 ></script>
 ```
 
 Do not use `https://cloud.umami.is/script.js` directly if you want requests to pass through your domain.
+
+## Example Proxy Snippets
+
+```html
+<!-- Umami Analytics Proxy -->
+<script
+  is:inline
+  defer
+  src="https://https://your-domain.com/stats/script.js"
+  data-website-id="xxxxx-xxxxx-xxxxx-xxxx"
+  data-host-url="https://your-domain.com"
+></script>
+
+<!-- Google Analytics Proxy -->
+<script async src="https://your-domain.com/tg/script.js?id=G-xxxxxxxxxxx"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-xxxxxxxxxx', {
+    transport_url: 'https://your-domain.com/an'
+  });
+</script>
+
+ <!-- Microsoft Clarity Proxy-->
+     
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://your-domain.com/clagg/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "XXXXXXXXXX");
+    </script>
+
+```
 
 ## Local Development
 
