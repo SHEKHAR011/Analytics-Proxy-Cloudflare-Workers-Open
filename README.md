@@ -11,9 +11,6 @@ Cloudflare Worker that proxies common analytics providers through your own domai
 | Google Analytics | `/an/*` | `ROUTE_GA` | `www.google-analytics.com` |
 | Umami Script | `/stats/script.js` | `ROUTE_UMAMI_SCRIPT` | `cloud.umami.is/script.js` |
 | Umami API | `/api/collect`, `/api/send` | `ROUTE_UMAMI_API` | `cloud.umami.is/api/send` |
-| Microsoft Clarity | `/cla/*` | `ROUTE_CLARITY` | `www.clarity.ms`, `scripts.clarity.ms`, `q.clarity.ms`, `{region}.clarity.ms` |
-| PostHog JS | `/phj/*` | `ROUTE_PH_JS` | `us-assets.i.posthog.com` |
-| PostHog API | `/pha/*` | `ROUTE_PH_API` | `us.i.posthog.com` |
 
 ## Key Behavior
 
@@ -32,34 +29,16 @@ ROUTE_GTM = "tg"
 ROUTE_GA = "an"
 ROUTE_UMAMI_SCRIPT = "stats"
 ROUTE_UMAMI_API = "api"
-ROUTE_CLARITY = "cla"
-ROUTE_PH_JS = "phj"
-ROUTE_PH_API = "pha"
-CLARITY_PROXY_COLLECT = "false"
 ```
 
 Notes:
 
-- Route values are normalized (leading/trailing slashes are removed).
-- `CLARITY_PROXY_COLLECT` accepts `true/false`, `1/0`, `yes/no`, `on/off`.
-- If `CLARITY_PROXY_COLLECT` is not set, Worker fallback logic treats it as `true`.
 
 Use either:
 
 - `wrangler.toml` for shared defaults.
 - `.dev.vars` for local overrides.
 
-## Clarity Mode (`CLARITY_PROXY_COLLECT`)
-
-- `true`: both Clarity script and collect stay on your proxy domain (`/cla/...`).
-  Better bypass rate, but Clarity geo may reflect proxy/edge location.
-- `false` (current project setting): script is proxied, collect is redirected (`307`) to Clarity hosts.
-  Better dashboard geo accuracy, but collect requests are easier to block.
-
-When `false`, these paths are redirected directly:
-
-- `/${ROUTE_CLARITY}/collect` -> `https://q.clarity.ms/collect`
-- `/${ROUTE_CLARITY}/{subdomain}/collect` -> `https://{subdomain}.clarity.ms/collect`
 
 ## Umami Integration
 
@@ -98,17 +77,6 @@ Do not use `https://cloud.umami.is/script.js` directly if you want requests to p
     transport_url: 'https://your-domain.com/an'
   });
 </script>
-
- <!-- Microsoft Clarity Proxy-->
-     
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://your-domain.com/clagg/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "XXXXXXXXXX");
-    </script>
-
 ```
 
 ## Local Development
@@ -131,7 +99,6 @@ curl http://127.0.0.1:8787/health
 curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:8787/tg/script.js?id=G-XXXXXXXX"
 curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:8787/an/g/e?v=2&tid=G-XXXXXXXX"
 curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:8787/stats/script.js"
-curl -s -o /dev/null -w "%{http_code}" -X POST "http://127.0.0.1:8787/api/collect" -H "content-type: application/json" -d "{}"
 ```
 
 ## Deploy
@@ -145,7 +112,6 @@ npm run deploy
 This project was built with help and inspiration from:
 
 - [saki](https://github.com/rajnandan1/saki.git) by [@rajnandan1](https://github.com/rajnandan1)
-- [clarity-reverse-proxy](https://github.com/tdmrx/clarity-reverse-proxy.git) by [@tdmrx](https://github.com/tdmrx)
 
 Big thanks to both maintainers for sharing their work.
 
